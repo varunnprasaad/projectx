@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %} Signup {% endblock %}
+
+{% block content %}
+<div class="container">
+    {{ super() }}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="login-container">
+                {% with msg = get_flashed_messages() %}
+                {% if msg %}
+                <div class="alert alert-danger">
+                    <strong>{{ msg[0] }}</strong> Please <a href="{{ url_for('auth.login') }}">Login</a>.
+                </div>
+                {% endif %}
+                {% endwith %}
+
+                <div class="panel panel-default text-center">
+                    <div class="panel-heading"><h3>Signup</h3></div>
+                    <div class="panel-body">
+                        <form action="/signup" class="form" method="post">
+                            <div class="form-group">
+                                <input class="form-control input-lg" id="firstname" name="firstname"
+                                       placeholder="Firstname" type="text"/>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control input-lg" id="lastname" name="lastname"
+                                       placeholder="Lastname" type="text"/>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control input-lg" id="password" name="password"
+                                       placeholder="Password" type="password"/>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control input-lg" id="email" name="email" placeholder="Email"
+                                       type="email"/>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control input-lg" id="phone" name="phone" placeholder="Phone Number"
+                                       type="tel"/>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control input-lg" id="street" name="street" placeholder="Street"
+                                       type="text"/>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input class="form-control input-lg" id="city" name="city" placeholder="City"
+                                               type="text"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class="form-control input-lg" id="state" name="state" placeholder="State"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input class="form-control input-lg" id="zip" name="zip" placeholder="Zipcode"
+                                               type="text"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input class="form-control input-lg" id="country" name="country"
+                                               placeholder="Country" type="text"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input class="btn btn-success form-control input-lg" type="submit" value="Signup"/>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="panel-footer">
+                        <p class="lead">
+                            Have an account? <a class="signup_login" href="{{url_for('auth.login')}}">Login</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

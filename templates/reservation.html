@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %} Reservation {% endblock %}
+
+{% block content %}
+<div class="container">
+    {{ super() }}
+    <div class="jumbotron">
+        <h1>New Reservation</h1>
+        <div class="row">
+            <div class="col-md-12">
+
+                <form action="/reservation" method="post">
+
+                    <select id="office" name="office">
+                        {% for ofc in offices %}
+                        {% if ofc == selected_ofc %}
+                        <option selected value="{{ ofc.id }}">{{ ofc.name }}</option>
+                        {% else %}
+                        <option value="{{ ofc.id }}">{{ ofc.name }}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                    <select id="category" name="category">
+                        {% for cat in categories %}
+                        {% if cat == selected_cat %}
+                        <option selected value="{{ cat.id }}">{{ cat.name }}</option>
+                        {% else %}
+                        <option value="{{ cat.id }}">{{ cat.name }}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+
+                    <button class="btn btn-success" type="submit">search</button>
+
+
+                </form>
+
+            </div>
+
+
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <form action="/checkout" method="post">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Make</th>
+                            <th>Mileage</th>
+                            <th>Price</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for v in vehicles %}
+                        <input name="vehicle" type="hidden" value="{{v.id}}">
+                        <input name="price" type="hidden" value="{{price}}">
+                        <tr>
+                            <td>{{ v.model }}</td>
+                            <td>{{ v.make }}</td>
+                            <td>{{ v.mileage }}</td>
+                            <td>{{ price }}</td>
+                            <td>
+                                <button class="btn btn-success" type="submit">
+                                    Checkout
+                                </button>
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+{% endblock %}

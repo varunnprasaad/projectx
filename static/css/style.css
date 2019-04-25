@@ -1,0 +1,21 @@
+
+body {
+    padding-top: 70px;
+    background-color: #1abc9c;
+}
+
+.navbar-brand{
+}
+
+.login-container{
+    border-radius: 10px;
+    margin: 100px 0;
+}
+
+.login-submit{
+    padding: 0 50px;
+}
+
+.signup_login{
+    color: #1abc9c !important;
+}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %} Confirmation {% endblock %}
+
+{% block content %}
+<div class="container">
+    {{ super() }}
+    <div class="jumbotron">
+        <h1>Reservation Confirmed!</h1>
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Congratulations! Your reservation has been confirmed.</h3>
+                Go to <a href="{{ url_for('main.profile') }}">My Reservations</a> to view your reservation.
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

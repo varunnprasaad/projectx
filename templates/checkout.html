@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %} Checkout {% endblock %}
+
+{% block content %}
+<div class="container">
+    {{ super() }}
+    <div class="jumbotron">
+        <h1>Checkout</h1>
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <form action="{{ url_for('main.confirmation') }}" method="post">
+
+                            <input name="vehicle" type="hidden" value="{{ vehicle.id }}">
+
+                            <h2>{{ vehicle.model }}</h2>
+
+                            <p class="lead">{{ vehicle.make }}</p>
+                            <p>Price/day: <strong>$ {{ price }}</strong></p>
+                            <p>
+                                Pickup Date
+                                <input id="pickup_date" name="pickup_date" type="date">
+                            </p>
+                            <p>
+                                Dropoff Date
+                                <input id="dropoff_date" name="dropoff_date" type="date">
+                            </p>
+                            <p>
+                                <button class="btn btn-success" type="submit">Reserve Now</button>
+                            </p>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script
+        src="https://code.jquery.com/jquery-3.4.0.min.js"
+        integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+        crossorigin="anonymous"></script>
+
+<script>
+
+            $(document).ready(function(){
+
+                $("#dropoff_date").on('change', function(){
+                    var pickup = $("#pickup_date").val();
+                    var dropoff = $("#dropoff_date").val();
+
+                    var diff = new Date(dropoff - pickup);
+
+                    console.log(typeof(diff));
+
+                   /* days = (diff) / (1000 * 60 * 60 * 24);
+                    console.log(days);
+                    $("#num_days").innerHTML = days; */
+                });
+            });
+
+
+
+
+</script>
+
+{% endblock %}
