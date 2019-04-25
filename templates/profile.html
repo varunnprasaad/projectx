@@ -17,16 +17,20 @@
                     <th>Reserved Date</th>
                     <th>Pickup Date</th>
                     <th>Dropoff Date</th>
+                    <th>Action</th>
                     </thead>
                     <tbody>
                     {% for reservation in reservations %}
-                    <tr>
+                    <tr id="{{reservation.id}}">
                         <td>{{ reservation.vehicle.make }}</td>
                         <td>{{ reservation.vehicle.model }}</td>
                         <td>{{ reservation.office.name }}</td>
                         <td> {{ reservation.reserved_date }}</td>
                         <td> {{ reservation.pickup_date }}</td>
                         <td> {{ reservation.dropoff_date }}</td>
+                        <td>
+                            <button class="btn btn-danger" onclick="del_res({{reservation.id}})">Delete</button>
+                        </td>
                     </tr>
                     {% endfor %}
                     </tbody>
@@ -41,6 +45,25 @@
 
 
     </div>
+    <script
+            crossorigin="anonymous"
+            integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+            src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+    <script>
+            function del_res(res){
+                $("#"+res).remove()
+                $.ajax({
+
+                url : '{{url_for("main.delreservation") }}',
+                type : 'GET',
+                data : {
+                    'res' : res
+                },
+                dataType:'json'
+            });
+            }
+
+    </script>
 
 </div>
 {% endblock %}

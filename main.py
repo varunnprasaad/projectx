@@ -31,12 +31,24 @@ def reservation():
     office = request.form.get('office')
     category = request.form.get('category')
 
-    vehicles = db_handler.models.Vehicle.query.filter_by(office_id=office, category_id=category).all()
+    vehicles = db_handler.models.Vehicle.query.filter_by(office_id=office, category_id=category, availability=1).all()
     p = db_handler.models.Category.query.filter_by(id=category).first()
 
     return render_template('reservation.html', vehicles=vehicles, selected_ofc=office, selected_cat=category,
                            offices=offices, categories=categories, price=p.price)
 
+
+@main.route('/delreservation', methods=['GET', 'POST'])
+def delreservation():
+    res = int(request.args.get('res'))
+    from app import db
+
+    reservation = db_handler.models.Reservation.query.filter_by(id=res).first()
+    vehicle = db_handler.models.Vehicle.query.filter_by(id=reservation.vehicle_id).first()
+
+    db_handler.models.Reservation.query.filter_by(id=res).delete()
+    vehicle.availability = 1
+    db.session.commit()
 
 @main.route('/checkout', methods=['GET', 'POST'])
 @login_required
@@ -76,6 +88,7 @@ def confirmation():
 
     db.session.add(new_reservation)
 
+    vehicle.availability = 0
     db.session.commit()
 
     return render_template('confirmation.html')

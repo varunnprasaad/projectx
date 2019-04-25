@@ -12,16 +12,22 @@
 
                 <form action="/reservation" method="post">
 
-                    <select id="office" name="office">
-                        {% for ofc in offices %}
-                        {% if ofc == selected_ofc %}
-                        <option selected value="{{ ofc.id }}">{{ ofc.name }}</option>
-                        {% else %}
-                        <option value="{{ ofc.id }}">{{ ofc.name }}</option>
-                        {% endif %}
-                        {% endfor %}
-                    </select>
-                    <select id="category" name="category">
+                    <div class="input-group">
+                        <label for="office">Office</label>
+                        <select id="office" name="office">
+                            {% for ofc in offices %}
+                            {% if ofc == selected_ofc %}
+                            <option selected value="{{ ofc.id }}">{{ ofc.name }}</option>
+                            {% else %}
+                            <option value="{{ ofc.id }}">{{ ofc.name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="category">Category</label>
+                        <select id="category" name="category">
                         {% for cat in categories %}
                         {% if cat == selected_cat %}
                         <option selected value="{{ cat.id }}">{{ cat.name }}</option>
@@ -30,6 +36,7 @@
                         {% endif %}
                         {% endfor %}
                     </select>
+                    </div>
 
                     <button class="btn btn-success" type="submit">search</button>
 
