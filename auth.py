@@ -55,7 +55,8 @@ def signup():
         new_user = db_handler.models.Customer(first_name=first_name, last_name=last_name, email=email, phone=phone,
                                               password=password, address=new_addr)
         db_handler.models.db.session.add(new_user)
-    db_handler.models.db.session.commit()
+    from app import db
+    db.session.commit()
 
     return redirect(url_for('auth.login'))
 

@@ -20,19 +20,28 @@
                     <th>Action</th>
                     </thead>
                     <tbody>
+
                     {% for reservation in reservations %}
-                    <tr id="{{reservation.id}}">
-                        <td>{{ reservation.vehicle.make }}</td>
-                        <td>{{ reservation.vehicle.model }}</td>
-                        <td>{{ reservation.office.name }}</td>
-                        <td> {{ reservation.reserved_date }}</td>
-                        <td> {{ reservation.pickup_date }}</td>
-                        <td> {{ reservation.dropoff_date }}</td>
-                        <td>
-                            <button class="btn btn-danger" onclick="del_res({{reservation.id}})">Delete</button>
-                        </td>
-                    </tr>
+                    <form action="/update" method="post">
+
+                        <input name="r" type="hidden" value="{{ reservation.id }}">
+
+                        <tr id="{{reservation.id}}">
+                            <td>{{ reservation.vehicle.make }}, {{ reservation.vehicle.model }}</td>
+                            <td>{{ reservation.office.name }}</td>
+                            <td> {{ reservation.reserved_date }}</td>
+                            <td> {{ reservation.pickup_date }}</td>
+                            <td> {{ reservation.dropoff_date }}</td>
+                            <td>
+                                <button class="btn btn-warning" type="submit">Update</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger" onclick="del_res({{reservation.id}})">Delete</button>
+                            </td>
+                        </tr>
+                    </form>
                     {% endfor %}
+
                     </tbody>
                 </table>
             </div>

@@ -8,13 +8,13 @@
     <div class="jumbotron">
         <h1>New Reservation</h1>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12" style="margin-bottom:50px;">
 
                 <form action="/reservation" method="post">
 
                     <div class="input-group">
                         <label for="office">Office</label>
-                        <select id="office" name="office">
+                        <select id="office" name="office" class="input-lg" style="padding: 0 50px; margin:0 50px;">
                             {% for ofc in offices %}
                             {% if ofc == selected_ofc %}
                             <option selected value="{{ ofc.id }}">{{ ofc.name }}</option>
@@ -23,22 +23,20 @@
                             {% endif %}
                             {% endfor %}
                         </select>
-                    </div>
 
-                    <div class="input-group">
                         <label for="category">Category</label>
-                        <select id="category" name="category">
-                        {% for cat in categories %}
-                        {% if cat == selected_cat %}
-                        <option selected value="{{ cat.id }}">{{ cat.name }}</option>
-                        {% else %}
-                        <option value="{{ cat.id }}">{{ cat.name }}</option>
-                        {% endif %}
-                        {% endfor %}
-                    </select>
-                    </div>
+                        <select id="category" class="input-lg" name="category" style="padding: 0 50px; margin:0 50px;">
+                            {% for cat in categories %}
+                            {% if cat == selected_cat %}
+                            <option selected value="{{ cat.id }}">{{ cat.name }}</option>
+                            {% else %}
+                            <option value="{{ cat.id }}">{{ cat.name }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
 
-                    <button class="btn btn-success" type="submit">search</button>
+                        <button class="btn btn-success" type="submit">search</button>
+                    </div>
 
 
                 </form>
@@ -47,6 +45,7 @@
 
 
         </div>
+        {% if vehicles %}
         <div class="row">
             <div class="col-xs-12">
                 <form action="/checkout" method="post">
@@ -69,7 +68,7 @@
                             <td>{{ v.model }}</td>
                             <td>{{ v.make }}</td>
                             <td>{{ v.mileage }}</td>
-                            <td>{{ price }}</td>
+                            <td>{{ price }} / day</td>
                             <td>
                                 <button class="btn btn-success" type="submit">
                                     Checkout
@@ -84,6 +83,7 @@
                 </form>
             </div>
         </div>
+        {% endif %}
     </div>
 
 

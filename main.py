@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect
 from flask_login import login_required, current_user
 
 import db_handler.models
@@ -15,7 +15,6 @@ def home():
 @login_required
 def profile():
     reservations = db_handler.models.Reservation.query.filter_by(customer_id=current_user.id).all()
-    print("User reservations: ", reservations)
     return render_template('profile.html', reservations=reservations)
 
 
@@ -72,9 +71,6 @@ def confirmation():
     dy, dm, dd = request.form.get('dropoff_date').split('-')
     dropoff_date = datetime(int(dy), int(dm), int(dd))
 
-    print(pickup_date)
-    print(dropoff_date)
-
     customer = current_user.id
 
     vehicle_id = int(request.form.get('vehicle'))
@@ -92,3 +88,32 @@ def confirmation():
     db.session.commit()
 
     return render_template('confirmation.html')
+
+
+@main.route('/update', methods=['GET', 'POST'])
+@login_required
+def update_reservation():
+    reservation_id = int(request.form.get('r'))
+
+    res = db_handler.models.Reservation.query.filter_by(id=reservation_id).first()
+
+    return render_template('update_reservation.html', res=res)
+
+
+@main.route('/_updatereservation', methods=['GET', 'POST'])
+@login_required
+def _updatereservation():
+    reservation_id = request.form.get('r')
+    _pickup = request.form.get('pickup_date')
+    _dropoff = request.form.get('dropoff_date')
+
+    res = db_handler.models.Reservation.query.filter_by(id=reservation_id).first()
+
+    res.pickup_date = _pickup
+    res.dropoff_date = _dropoff
+
+    from app import db
+
+    db.session.commit()
+
+    return redirect('/profile')

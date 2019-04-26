@@ -6,7 +6,7 @@
 <div class="container">
     {{ super() }}
     <div class="jumbotron">
-        <h1>Checkout</h1>
+        <h1>Reservation Checkout</h1>
         <div class="row">
             <div class="col-md-12">
 
@@ -19,15 +19,16 @@
                             <h2>{{ vehicle.model }}</h2>
 
                             <p class="lead">{{ vehicle.make }}</p>
-                            <p>Price/day: <strong>$ {{ price }}</strong></p>
+                            <p>Price/day: <strong id="price">$ {{ price }}</strong></p>
                             <p>
                                 Pickup Date
                                 <input id="pickup_date" name="pickup_date" type="date">
                             </p>
                             <p>
                                 Dropoff Date
-                                <input id="dropoff_date" name="dropoff_date" type="date">
+                                <input id="dropoff_date" name="dropoff_date" type="date" onchange="calc()">
                             </p>
+                            <p id="total"></p>
                             <p>
                                 <button class="btn btn-success" type="submit">Reserve Now</button>
                             </p>
@@ -47,24 +48,21 @@
 
 <script>
 
-            $(document).ready(function(){
+function calc(){
+    var p = $("#pickup_date").val();
+    var d = $("#dropoff_date").val();
 
-                $("#dropoff_date").on('change', function(){
-                    var pickup = $("#pickup_date").val();
-                    var dropoff = $("#dropoff_date").val();
+    p = parseInt(p.split('-')[2]);
+    d = parseInt(d.split('-')[2]);
 
-                    var diff = new Date(dropoff - pickup);
+    price = parseInt($("#price").val());
 
-                    console.log(typeof(diff));
+    days = d-p;
 
-                   /* days = (diff) / (1000 * 60 * 60 * 24);
-                    console.log(days);
-                    $("#num_days").innerHTML = days; */
-                });
-            });
+    console.log(days * price);
 
-
-
+    $("#total").innerHTML = total;
+}
 
 </script>
 

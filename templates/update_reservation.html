@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %} Confirmation {% endblock %}
+
+{% block content %}
+<div class="container">
+    {{ super() }}
+    <div class="jumbotron">
+        <h1>Update Reservation</h1>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="updatepanel">
+
+                    <div class="panel">
+                        <div class="panel-body">
+                            <form action="/_updatereservation" method="post">
+                                <input type="hidden" name="r" value="{{res.id}}">
+                                <div class="form-group">
+                                    <label for="vehicle">Vehicle</label>
+                                    <input type="text" class="form-control" name="vehicle" id="vehicle"
+                                           value="{{ res.vehicle.model }}, {{ res.vehicle.make }}" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pickup_location">Pickup Location</label>
+                                    <input type="text" class="form-control" name="pickup_location" id="pickup_location"
+                                           value="{{ res.office.name }}" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pickup_date">Pickup Date</label>
+                                    <input type="text" class="form-control" name="pickup_date" id="pickup_date"
+                                           value="{{ res.pickup_date }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="dropoff_date">Dropoff Date</label>
+                                    <input type="text" class="form-control" name="dropoff_date" id="dropoff_date"
+                                           value="{{ res.dropoff_date }}">
+                                </div>
+
+                                <button type="submit" class="btn btn-default">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

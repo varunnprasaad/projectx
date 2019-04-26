@@ -4,7 +4,7 @@ from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://varun:0000@localhost/roadrunner'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://varun:1234@localhost/roadrunner'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = "somesecretkey"
 
